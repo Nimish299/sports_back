@@ -10,15 +10,15 @@ const academyRoute = require('./routes/AcademyRoute');
 const playerPostRoute = require('./routes/PlayerPostRoute');
 
 const app = express();
-// app.use(cors());
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   res.header(
-//     'Access-Control-Allow-Headers',
-//     'Content-Type, Origin , Accept, X-Requested-With'
-//   );
-//   next();
-// });
+app.use(cors());
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Content-Type, Origin , Accept, X-Requested-With'
+  );
+  next();
+});
 // app.use(cors);
 
 app.use(express.json());
