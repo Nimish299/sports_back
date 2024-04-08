@@ -18,8 +18,7 @@ app.use(cookieParser());
 
 // Logging middleware
 app.use((req, res, next) => {
-  console.log(req.path, '  ', req.method);
-  console.log(req.body);
+  console.log('Incoming request:', req.method, req.url);
   next();
 });
 
@@ -28,16 +27,6 @@ app.use('/api/player', playerRoute);
 app.use('/api/coach', coachRoute);
 app.use('/api/academy', academyRoute);
 app.use('/api/playerpost', playerPostRoute);
-
-// CORS headers
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Content-Type, Origin, Accept, X-Requested-With'
-  );
-  next();
-});
 
 // Database connection and server start
 mongoose
