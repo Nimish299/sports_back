@@ -8,16 +8,23 @@ const playerRoute = require('./routes/PlayerRoute');
 const coachRoute = require('./routes/CoachRoute');
 const academyRoute = require('./routes/AcademyRoute');
 const playerPostRoute = require('./routes/PlayerPostRoute');
-const { setCorsHeaders } = require('./middleware/corsMiddleware');
 
 const app = express();
 
 // Middleware
+// app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-// Enable CORS globally using the middleware
-app.use(setCorsHeaders);
+// CORS options
+const corsOptions = {
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+};
+
+// Enable CORS with options
+app.use(cors(corsOptions));
 
 // Logging middleware
 app.use((req, res, next) => {
