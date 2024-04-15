@@ -24,7 +24,7 @@ router.use(
     '/delete',
 
     '/create',
-    '/allPlayerPost',
+    '/allplayerpost',
     '/allplayerposts',
     '/requestonpost',
     '/Statusonpost',
@@ -43,7 +43,7 @@ router.delete('/delete', deletePlayerPost);
 router.post('/create', createPlayerPost);
 router.post('/POSTAccept', POSTAccept);
 router.post('/POSTREJECT', POSTREJECT);
-router.get('/allPlayerPost', allPlayerPost);
+router.get('/allplayerpost', allPlayerPost);
 router.get('/allplayerposts', allPlayerPosts);
 router.get('/details/:_id', getdetails);
 router.get('/Getrequestonpost/:_id', Getrequestonpost);
