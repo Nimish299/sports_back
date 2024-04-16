@@ -16,20 +16,20 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-// CORS options
-const corsOptions = {
-  origin: '*', // Allow all origins
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
-};
-
 // // CORS options
 // const corsOptions = {
-//   origin: 'https://sports-front-sns5.vercel.app', // Allow all origins
+//   origin: '*', // Allow all origins
 //   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
 //   allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
-//   Credentials:true
 // };
+
+// CORS options
+const corsOptions = {
+  origin: 'https://sports-front-sns5.vercel.app', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+  Credentials: true,
+};
 
 // Enable CORS with options
 app.use(cors(corsOptions));
