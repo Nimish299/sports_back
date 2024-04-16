@@ -26,9 +26,8 @@ app.use(cookieParser());
 // CORS options
 const corsOptions = {
   origin: 'https://sports-front-sns5.vercel.app', // Allow all origins
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
-  Credentials: true,
+  credentials: true,
+  optionsSuccessStatus: 200,
 };
 
 // Enable CORS with options
