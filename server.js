@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 // CORS options
 const corsOptions = {
-  origin: 'https://sports-front-sns5.vercel.app', // Allow all origins
+  origin: 'https://sports-02no.onrender.com/', // Allow all origins
   credentials: true,
   optionsSuccessStatus: 200,
 };
