@@ -27,6 +27,8 @@ app.use(cookieParser());
 const corsOptions = {
   origin: '*', // Allow all origins
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
   optionsSuccessStatus: 200,
 };
 
