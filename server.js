@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 // CORS options
 const corsOptions = {
-  origin: 'https://sports-02no.onrender.com/', // Allow all origins
+  origin: '*', // Allow all origins
   credentials: true,
   optionsSuccessStatus: 200,
 };
