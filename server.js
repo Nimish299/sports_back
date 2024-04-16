@@ -16,21 +16,21 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-// // CORS options
-// const corsOptions = {
-//   origin: '*', // Allow all origins
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
-//   allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
-// };
-
 // CORS options
 const corsOptions = {
   origin: '*', // Allow all origins
-  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
-  optionsSuccessStatus: 200,
 };
+
+// // CORS options
+// const corsOptions = {
+//   origin: '*', // Allow all origins
+//   credentials: true,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
+//   allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+//   optionsSuccessStatus: 200,
+// };
 
 // Enable CORS with options
 app.use(cors(corsOptions));
