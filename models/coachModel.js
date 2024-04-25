@@ -11,7 +11,106 @@ const coachSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    name: {
+      type: String,
+      // required: true,
+    },
+    emailID: {
+      type: String,
+      required: true,
+    },
+    // password: {
+    //   type: String,
+    //   required: true,
+    // },
+    mobileNumber: {
+      type: String,
+      required: true,
+    },
+
+    applied_students: [
+      {
+        player_id: {
+          type: String,
+        },
+      },
+    ],
+    About: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    location: {
+      type: String,
+    },
+    sports_expertise: [
+      {
+        sport: {
+          type: String,
+          // required: true,
+        },
+        coaching_experience_years: {
+          type: Number,
+          // required: true,
+        },
+        certifications: [String],
+        // Add more fields as needed, such as coaching style, methodology, etc.
+      },
+    ],
+    achievements: [
+      {
+        title: {
+          type: String,
+          // required: true,
+        },
+        description: {
+          type: String,
+          // required: true,
+        },
+        date: {
+          type: Date,
+          // required: true,
+        },
+      },
+    ],
+    communication_preferences: {
+      preferred_language: {
+        type: String,
+        default: 'English',
+      },
+    },
+    social_interactions: {
+      bio: {
+        type: String,
+      },
+      interests: {
+        type: [String],
+      },
+      social_media_links: {
+        facebook: {
+          type: String,
+        },
+        twitter: {
+          type: String,
+        },
+        instagram: {
+          type: String,
+        },
+      },
+    },
+    feedback_and_ratings: {
+      reviews: [
+        {
+          type: String,
+        },
+      ],
+      ratings: {
+        type: Number,
+        default: 0,
+      },
+    },
   },
+
   { Timestamps: true }
 );
 
