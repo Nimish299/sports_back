@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 //middleware
-const { playermiddle } = require('../middleware/academyMiddleware');
+const { playermiddle } = require('../middleware/playerMiddleware');
 
 const {
   createPlayerPost,
