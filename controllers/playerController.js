@@ -43,8 +43,8 @@ const signup = async (req, res) => {
       });
       console.log(player);
       const token = createToken(player._id);
-      res.cookie('playerid', token, { httpOnly: true, maxAge: maxAge * 1000 });
-      res.status(200).json(player);
+      // res.cookie('playerid', token, { httpOnly: true, maxAge: maxAge * 1000 });
+      res.status(200).json({ token });
     } catch (err) {
       return res.status(400).json({ error: err });
     }
@@ -81,6 +81,18 @@ const fetchPlayerInfo = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+// const login = async (req, res) => {
+//   const { emailID, password } = req.body;
+//   try {
+//     player = await playerModel.login(emailID, password);
+//   } catch (e) {
+//     return res.status(400).json({ error: e.message });
+//   }
+
+//   const token = createToken(player._id);
+//   res.status(200).json({ token });
+// };
+
 const login = async (req, res) => {
   const { emailID, password } = req.body;
   try {
@@ -89,9 +101,14 @@ const login = async (req, res) => {
     return res.status(400).json({ error: e.message });
   }
 
+  // const token = createToken(player._id);
+  // res.cookie('playerid', token, { httpOnly: true, maxAge: maxAge * 1000 });
+  // res.status(200).json(player);
+
   const token = createToken(player._id);
-  res.cookie('playerid', token, { httpOnly: true, maxAge: maxAge * 1000 });
-  res.status(200).json(player);
+  console.log('token', token);
+
+  res.status(200).json({ token });
 };
 
 //we set lifetime to 1 ms so it goes
