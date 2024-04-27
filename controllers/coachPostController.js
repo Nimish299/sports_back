@@ -45,4 +45,13 @@ const coachselfpost = async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
-module.exports = { createcoachPost, coachselfpost };
+
+const allcoachPosts = async (req, res) => {
+  // const posts = await playerPostModel.find();
+  const coachId = req.coachid;
+
+  // Fetch all posts excluding those created by the player
+  const posts = await coachPostModel.find();
+  return res.status(200).json(posts);
+};
+module.exports = { createcoachPost, coachselfpost, allcoachPosts };

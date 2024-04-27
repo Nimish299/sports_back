@@ -18,6 +18,7 @@ const {
   fetchPlayerInfo,
   check,
   please_tell_me_if_it_is_starred,
+  fetch_coach_info
 } = require('../controllers/playerController');
 
 router.post('/signup', signup);
@@ -37,6 +38,7 @@ router.use(
     '/fetchPlayerInfo',
     '/check',
     '/tellifstarred',
+    '/fetch_coach_info',
   ],
   playermiddle
 );
@@ -53,4 +55,7 @@ router.get('/starred', starred);
 router.delete('/removefromstarred', removefromstarred);
 router.get('/tellifstarred/:_id', please_tell_me_if_it_is_starred);
 
+// coach
+
+router.get('/fetch_coach_info/:_id', fetch_coach_info);
 module.exports = router;

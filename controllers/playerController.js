@@ -1,6 +1,8 @@
 const playerModel = require('../models/playerModel');
 const academyModel = require('../models/academyModel');
 const playerPostModel = require('../models/playerPostModel');
+const coachModel = require('../models/coachModel');
+const coachPostModel = require('../models/coachPostModel');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
@@ -328,7 +330,43 @@ const please_tell_me_if_it_is_starred = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+const fetch_coach_info = async (req, res) => {
+  try {
+    const playerId = req.playerid;
+    // const { post_id } = req.body;
+    const postId = req.params._id;
+    const post = await coachPostModel.findById(postId);
+    // console.log(`post`, post);
+    const coach_id = post.createdBy;
+    // console.log(coach_id);
+    const coach = await coachModel.findById(coach_id);
+    const {
+      name,
+      emailID,
+      mobileNumber,
+      location,
+      sport,
+      coaching_experience_years,
+    } = coach;
 
+    // Create a new object containing only the name and general information
+    const coachInfo = {
+      name,
+      emailID,
+      mobileNumber,
+      location,
+      sport,
+      coaching_experience_years,
+    };
+
+    // Return the coach's name and general information as JSON response
+    res.status(200).json(coachInfo);
+  } catch (error) {
+    // Handle any errors that occur during the process
+    console.error('Error fetching player information:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 module.exports = {
   signup,
   login,
@@ -344,4 +382,5 @@ module.exports = {
   fetchPlayerInfo,
   check,
   please_tell_me_if_it_is_starred,
+  fetch_coach_info,
 };
