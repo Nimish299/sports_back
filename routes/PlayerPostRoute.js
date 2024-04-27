@@ -17,6 +17,7 @@ const {
   POSTAccept,
   getpostsbyids,
   POSTREJECT,
+  requestoncoachpost,
 } = require('../controllers/playerPostController');
 
 router.use(
@@ -32,6 +33,7 @@ router.use(
     '/POSTAccept',
     '/POSTREJECT',
     '/getpostsbyids',
+    '/requestoncoachpost',
   ],
   playermiddle
 );
@@ -49,4 +51,5 @@ router.get('/details/:_id', getdetails);
 router.get('/Getrequestonpost/:_id', Getrequestonpost);
 router.get('/sport/:sport', playerPostbySport);
 
+router.post('/requestoncoachpost/:_id', requestoncoachpost);
 module.exports = router;

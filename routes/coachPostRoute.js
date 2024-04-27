@@ -6,13 +6,13 @@ const { coachmiddle } = require('../middleware/coachMiddleware');
 const {
   createcoachPost,
   coachselfpost,
-  allcoachPosts,
+  // allcoachPosts,
 } = require('../controllers/coachPostController');
 
 router.use(['/create', '/allselfpost'], coachmiddle);
 
 router.post('/create', createcoachPost);
 router.get('/allselfpost', coachselfpost);
-router.get('/allcoachposts', allcoachPosts);
+// router.get('/allcoachposts', allcoachPosts);
 
 module.exports = router;

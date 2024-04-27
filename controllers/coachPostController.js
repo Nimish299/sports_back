@@ -54,4 +54,18 @@ const allcoachPosts = async (req, res) => {
   const posts = await coachPostModel.find();
   return res.status(200).json(posts);
 };
-module.exports = { createcoachPost, coachselfpost, allcoachPosts };
+
+const coachPost = async (req, res) => {
+  // const posts = await playerPostModel.find();
+  const coachId = req.coachid;
+  const postId = req.params._id;
+  // Fetch all posts excluding those created by the player
+  const post = await coachPostModel.findById(postId);
+  return res.status(200).json(post);
+};
+
+
+
+
+
+module.exports = { createcoachPost, coachselfpost, allcoachPosts, coachPost };

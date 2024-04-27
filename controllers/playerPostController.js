@@ -1,4 +1,6 @@
 const playerPostModel = require('../models/playerPostModel');
+const coachModel = require('../models/coachModel');
+const coachPostModel = require('../models/coachPostModel');
 const playerModel = require('../models/playerModel');
 const createPlayerPost = async (req, res) => {
   try {
@@ -350,6 +352,49 @@ const POSTREJECT = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+const requestoncoachpost = async (req, res) => {
+  try {
+    // Extract required fields from the request body
+    const { message, skill } = req.body;
+
+    const coachpostId = req.params._id;
+    const playerId = req.playerid;
+    // Find the player post
+    const post = await coachPostModel.findById(coachpostId);
+
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    const existingRequest = post.requests.find(
+      (request) => request.playerId === playerId
+    );
+
+    if (existingRequest) {
+      // If a request already exists for the playerId, send an error response
+      return res.status(400).json({ error: 'Request already exists ' });
+    }
+    // Construct the request object
+    const request = {
+      playerId,
+      message,
+      skill,
+      status: 'pending', // Assuming the default status is pending
+    };
+
+    // Push the request to the post's requests array
+    post.requests.push(request);
+
+    // Save the updated post
+    await post.save();
+
+    res.status(201).json({ message: 'Request created successfully' });
+  } catch (error) {
+    console.error('Error in Request player post:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 module.exports = {
   createPlayerPost,
   Getrequestonpost,
@@ -363,4 +408,5 @@ module.exports = {
   POSTAccept,
   getpostsbyids,
   POSTREJECT,
+  requestoncoachpost,
 };

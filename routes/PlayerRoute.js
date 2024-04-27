@@ -2,7 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const { playermiddle } = require('../middleware/playerMiddleware');
-
+const {
+  coachPost,
+  allcoachPosts,
+} = require('../controllers/coachPostController');
 const {
   signup,
   login,
@@ -18,7 +21,7 @@ const {
   fetchPlayerInfo,
   check,
   please_tell_me_if_it_is_starred,
-  fetch_coach_info
+  fetch_coach_info,
 } = require('../controllers/playerController');
 
 router.post('/signup', signup);
@@ -39,6 +42,8 @@ router.use(
     '/check',
     '/tellifstarred',
     '/fetch_coach_info',
+    '/allcoachposts',
+    '/coachpost',
   ],
   playermiddle
 );
@@ -58,4 +63,7 @@ router.get('/tellifstarred/:_id', please_tell_me_if_it_is_starred);
 // coach
 
 router.get('/fetch_coach_info/:_id', fetch_coach_info);
+router.get('/coachpost/:_id', coachPost);
+router.get('/allcoachposts', allcoachPosts);
+
 module.exports = router;
