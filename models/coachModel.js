@@ -117,9 +117,13 @@ const coachSchema = new mongoose.Schema(
         default: 0,
       },
     },
+    isBlocked: {
+      type: Boolean,
+      default: false,
+    },
   },
 
-  { Timestamps: true }
+  { timestamps: true }
 );
 
 coachSchema.pre('save', async function (next) {

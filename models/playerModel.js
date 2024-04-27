@@ -89,8 +89,13 @@ const playerSchema = new mongoose.Schema(
         default: 0,
       },
     },
+    isBlocked: {
+      type: Boolean,
+      default: false,
+    },
   },
-  { Timestamps: true }
+
+  { timestamps: true }
 );
 
 playerSchema.pre('save', async function (next) {
