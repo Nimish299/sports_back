@@ -15,10 +15,10 @@ const coachSchema = new mongoose.Schema(
       type: String,
       // required: true,
     },
-    emailID: {
-      type: String,
-      required: true,
-    },
+    // emailID: {
+    //   type: String,
+    //   required: true,
+    // },
     // password: {
     //   type: String,
     //   required: true,
@@ -37,26 +37,28 @@ const coachSchema = new mongoose.Schema(
     ],
     About: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
     location: {
       type: String,
     },
-    sports_expertise: [
-      {
-        sport: {
-          type: String,
-          // required: true,
-        },
-        coaching_experience_years: {
-          type: Number,
-          // required: true,
-        },
-        certifications: [String],
-        // Add more fields as needed, such as coaching style, methodology, etc.
-      },
-    ],
+
+    sport: {
+      type: String,
+      // required: true,
+      enum: ['Football', 'Basketball', 'Tennis', 'Swimming', 'Badminton'],
+    },
+    coaching_experience_years: {
+      type: Number,
+      // required: true,
+    },
+    certifications: {
+      type: String,
+      // required: true,
+    },
+    // Add more fields as needed, such as coaching style, methodology, etc.
+
     achievements: [
       {
         title: {

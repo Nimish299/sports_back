@@ -43,7 +43,7 @@ const playerSchema = new mongoose.Schema(
         sport: {
           type: String,
           // required: true,
-          // enum: ['Football', 'Basketball', 'Tennis', 'Cricket', 'Other'],
+          // enum: ['Football', 'Basketball', 'Tennis', 'Swimming', 'Badminton'],
         },
         skill: {
           type: String,
