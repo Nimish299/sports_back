@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 
 const coachPostSchema = new mongoose.Schema(
   {
@@ -13,17 +13,7 @@ const coachPostSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    sport: {
-      type: String,
-      required: true,
-      // enum: ['Football', 'Basketball', 'Tennis', 'Cricket', 'Other'],
-    },
-    quantity: {
-      type: Number,
-      required: true,
-      min: 1,
-    },
-    location: {
+    court: {
       type: String,
       required: true,
       trim: true,
@@ -36,7 +26,7 @@ const coachPostSchema = new mongoose.Schema(
 
     createdBy: {
       ///PID
-      ref: 'Player', // Assuming a Player model exists
+      ref: 'coach', // Assuming a Player model exists
       required: true,
       type: String,
       //   required: true,
@@ -56,6 +46,12 @@ const coachPostSchema = new mongoose.Schema(
           type: String,
           required: true,
           trim: true,
+        },
+        skill: {
+          type: String,
+          // required: true,
+          enum: ['Beginner', 'Intermediate', 'Advanced'],
+          default: 'Intermediate',
         },
         timestamp: {
           type: Date,

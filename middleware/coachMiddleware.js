@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const coachmiddle = (req, res, next) => {
   const token = req.header('Authorization');
-  console.log('here ', token);
+  console.log('here coach middle', token);
   if (!token) {
     return res.status(401).json({ error: 'no token present' });
   }

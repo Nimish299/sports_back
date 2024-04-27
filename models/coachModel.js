@@ -33,6 +33,12 @@ const coachSchema = new mongoose.Schema(
         player_id: {
           type: String,
         },
+        skill: {
+          type: String,
+          // required: true,
+          enum: ['Beginner', 'Intermediate', 'Advanced'],
+          default: 'Intermediate',
+        },
       },
     ],
     About: {

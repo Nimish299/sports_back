@@ -8,7 +8,7 @@ const playerRoute = require('./routes/PlayerRoute');
 const coachRoute = require('./routes/CoachRoute');
 const academyRoute = require('./routes/AcademyRoute');
 const playerPostRoute = require('./routes/PlayerPostRoute');
-
+const coachPostRoute = require('./routes/coachPostRoute');
 const app = express();
 
 // Middleware
@@ -46,7 +46,7 @@ app.use('/api/player', playerRoute);
 app.use('/api/coach', coachRoute);
 app.use('/api/academy', academyRoute);
 app.use('/api/playerpost', playerPostRoute);
-
+app.use('/api/coachpost', coachPostRoute);
 // Database connection and server start
 mongoose
   .connect(process.env.DB_URI)
