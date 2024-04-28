@@ -123,10 +123,25 @@ const fetch_player_info = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+const profile = async (req, res) => {
+  try {
+    const coachId = req.coachid;
+    const coach = await coachModel.findById(coachId);
+
+    if (!coach) return res.status(404).json({ error: 'Player not found' });
+
+    res.status(200).json(coach);
+  } catch (error) {
+    console.error('Error fetching player profile:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 module.exports = {
   signup,
   login,
   logout,
   all_applied_Student,
   fetch_player_info,
+  profile,
 };
