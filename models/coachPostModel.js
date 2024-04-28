@@ -23,6 +23,11 @@ const coachPostSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
+    selectedSlot: {
+      type: String,
+      required: true,
+      // trim: true,
+    },
 
     createdBy: {
       ///PID

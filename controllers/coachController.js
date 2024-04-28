@@ -25,8 +25,10 @@ const signup = async (req, res) => {
     // Check if coach with the same email already exists
     const existingCoach = await coachModel.findOne({ emailID });
     if (existingCoach) {
+      console.log()
       return res.status(400).json({ error: 'Coach already exists' });
     }
+
 
     // Create a new coach document with sports expertise
     const coach = await coachModel.create({
@@ -53,9 +55,13 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   const { emailID, password } = req.body;
+  console.log(emailID);
+  console.log(password);
   try {
     coach = await coachModel.login(emailID, password);
+    console.log(coach);
   } catch (e) {
+    console.log(e);
     return res.status(400).json({ error: e.message });
   }
 

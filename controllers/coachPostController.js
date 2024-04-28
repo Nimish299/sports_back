@@ -5,12 +5,14 @@ const coachPostModel = require('../models/coachPostModel');
 const createcoachPost = async (req, res) => {
   try {
     // Extract required fields from the request body
-    const { title, description, court, price } = req.body;
+    const { title, description, court, price, selectedSlot } = req.body;
     // Get the player's ID from the request
+    console.log(selectedSlot);
     const coachId = req.coachid;
     // Check if a player post with the same title already exists
     const existingPost = await coachPostModel.findOne({ title });
     if (existingPost) {
+      console.log(`201`);
       return res
         .status(400)
         .json({ error: 'A player post with this title already exists' });
@@ -21,10 +23,10 @@ const createcoachPost = async (req, res) => {
       description,
       court,
       price,
+      selectedSlot,
       createdBy: coachId,
     });
-
-    // Return both the created player post and the player's information
+    console.log(`201ww`);
     res.status(201).json();
   } catch (error) {
     console.error('Error creating player post:', error);
@@ -63,9 +65,5 @@ const coachPost = async (req, res) => {
   const post = await coachPostModel.findById(postId);
   return res.status(200).json(post);
 };
-
-
-
-
 
 module.exports = { createcoachPost, coachselfpost, allcoachPosts, coachPost };
