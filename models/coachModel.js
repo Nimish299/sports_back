@@ -39,6 +39,7 @@ const coachSchema = new mongoose.Schema(
           enum: ['Beginner', 'Intermediate', 'Advanced'],
           default: 'Intermediate',
         },
+        postId: { type: String },
       },
     ],
     About: {
@@ -136,7 +137,7 @@ coachSchema.statics.login = async function (emailID, password) {
   const coach = await this.findOne({ emailID });
   if (!coach) throw Error('no such coach');
   const auth = await bcrypt.compare(password, coach.password);
-  if (!auth) throw Error('wrong password');
+  if (!auth) throw Error('wrong <> password');
   return coach;
 };
 

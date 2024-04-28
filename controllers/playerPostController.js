@@ -264,6 +264,7 @@ const POSTAccept = async (req, res) => {
   try {
     // console.log(playerId); //player who requested
     // console.log(playerId1); //player who posted and willl accept
+    // console.log(`req:`, req);
     const { postId, playerId } = req.body;
     const playerId1 = req.playerid;
     // Find the post by postId
@@ -339,14 +340,13 @@ const POSTREJECT = async (req, res) => {
     });
     // Save the updated post
     await post.save();
-    const Accpost = post.accepted.map((accepted) => ({
+    const reccpost = post.Rejected.map((Rejected) => ({
       postId: postId,
 
-      timestamp: accepted.timestamp,
+      timestamp: Rejected.timestamp,
     }));
-    console.log(`acc`);
-    console.log(Accpost);
-    res.status(201).json(Accpost);
+
+    res.status(201).json(reccpost);
   } catch (error) {
     console.error('Error in accepting request:', error);
     res.status(500).json({ error: 'Internal server error' });
