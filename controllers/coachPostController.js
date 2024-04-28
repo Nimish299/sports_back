@@ -166,6 +166,7 @@ const POSTAccept = async (req, res) => {
           player_id: request.playerId,
           skill: request.skill,
           postId: post._id,
+          timestamp: new Date(),
         });
       }
     });

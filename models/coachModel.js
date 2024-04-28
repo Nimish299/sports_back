@@ -40,6 +40,10 @@ const coachSchema = new mongoose.Schema(
           default: 'Intermediate',
         },
         postId: { type: String },
+        timestamp: {
+          type: Date,
+          default: Date.now,
+        },
       },
     ],
     About: {
@@ -128,9 +132,17 @@ const coachSchema = new mongoose.Schema(
 );
 
 coachSchema.pre('save', async function (next) {
-  const salt = await bcrypt.genSalt();
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
+  if (!this.isModified('password')) {
+    return next(); // If password is not modified, move to the next middleware
+  }
+
+  try {
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 coachSchema.statics.login = async function (emailID, password) {

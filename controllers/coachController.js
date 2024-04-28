@@ -21,14 +21,14 @@ const signup = async (req, res) => {
       coaching_experience_years,
       certifications,
     } = req.body;
-
+    console.log(emailID);
+    console.log(password);
     // Check if coach with the same email already exists
     const existingCoach = await coachModel.findOne({ emailID });
     if (existingCoach) {
-      console.log()
+      console.log();
       return res.status(400).json({ error: 'Coach already exists' });
     }
-
 
     // Create a new coach document with sports expertise
     const coach = await coachModel.create({
@@ -92,16 +92,41 @@ const all_applied_Student = async (req, res) => {
     }
     const appliedStudents = coach.applied_students;
     // Fetch all posts excluding those created by the player
+    // console.log(appliedStudents);
     return res.status(200).json(appliedStudents);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+const fetch_player_info = async (req, res) => {
+  try {
+    const coachId = req.coachid;
+    const playerID = req.params._id;
+    const player = await playerModel.findById(playerID);
+    // Extract the name and general information from the player object
+    const { name, emailID, mobileNumber, location } = player;
 
+    // Create a new object containing only the name and general information
+    const playerInfo = {
+      name,
+      emailID,
+      mobileNumber,
+      location,
+    };
+
+    // Return the player's name and general information as JSON response
+    res.status(200).json(playerInfo);
+  } catch (error) {
+    // Handle any errors that occur during the process
+    console.error('Error fetching player information:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 module.exports = {
   signup,
   login,
   logout,
   all_applied_Student,
+  fetch_player_info,
 };

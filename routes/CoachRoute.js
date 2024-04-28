@@ -8,12 +8,12 @@ const {
   login,
   logout,
   all_applied_Student,
+  fetch_player_info,
 } = require('../controllers/coachController');
-
+router.use(['/applied/students', '/fetch_player_info'], coachmiddle);
 router.post('/signup', signup);
 router.post('/login', login);
 router.get('/logout', logout);
-
-router.use(['/applied/students'], coachmiddle);
+router.get('/fetch_player_info/:_id', fetch_player_info);
 router.get('/applied/students', all_applied_Student);
 module.exports = router;
