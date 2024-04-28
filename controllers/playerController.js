@@ -367,6 +367,55 @@ const fetch_coach_info = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+const fetch_coach = async (req, res) => {
+  try {
+    const playerId = req.playerid;
+    // const { post_id } = req.body;
+    const coach_id = req.params._id;
+
+    const coach = await coachModel.findById(coach_id);
+    const {
+      name,
+      emailID,
+      mobileNumber,
+      location,
+      sport,
+      coaching_experience_years,
+    } = coach;
+
+    // Create a new object containing only the name and general information
+    const coachInfo = {
+      name,
+      emailID,
+      mobileNumber,
+      location,
+      sport,
+      coaching_experience_years,
+    };
+    console.log(coachInfo);
+    // Return the coach's name and general information as JSON response
+    res.status(200).json(coachInfo);
+  } catch (error) {
+    // Handle any errors that occur during the process
+    console.error('Error fetching player information:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+const coach_applied = async (req, res) => {
+  try {
+    const playerId = req.playerid;
+    const coaches = await coachModel.find({
+      'applied_students.player_id': playerId,
+    });
+    const coachIds = coaches.map((coach) => coach._id);
+    console.log(coachIds);
+    return res.status(200).json(coachIds);
+  } catch (error) {
+    console.error('Error removing post from starred:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 module.exports = {
   signup,
   login,
@@ -383,4 +432,6 @@ module.exports = {
   check,
   please_tell_me_if_it_is_starred,
   fetch_coach_info,
+  coach_applied,
+  fetch_coach,
 };
