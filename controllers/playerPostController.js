@@ -395,6 +395,51 @@ const requestoncoachpost = async (req, res) => {
   }
 };
 
+const RecentActivity = async (req, res) => {
+  try {
+    const playerId = req.playerid;
+
+    // Find all posts where the playerId matches playerId in requests
+    const posts = await playerPostModel.find({ 'requests.playerId': playerId });
+
+    // Initialize an empty array to store accepted and rejected requests
+    let allRequests = [];
+
+    // Iterate through each post
+    for (const post of posts) {
+      // Filter requests for the current post that are accepted or rejected and match playerId
+      const playerRequests = post.requests.filter(
+        (req) =>
+          req.playerId === playerId &&
+          (req.status === 'accepted' || req.status === 'rejected')
+      );
+
+      // Concatenate playerRequests with allRequests
+      allRequests = allRequests.concat(
+        playerRequests.map((request) => ({
+          postId: post._id, // Extracting post ID from the current post
+          status: request.status,
+          message: request.message,
+          timestamp: request.timestamp,
+        }))
+      );
+    }
+
+    // Sort all requests by timestamp in descending order
+    allRequests.sort((a, b) => b.timestamp - a.timestamp);
+    console.log(`allreq`, allRequests);
+    // Get the latest 5 activities
+    const latestActivities = allRequests.slice(0, 5);
+    console.log(`Latest :::`, latestActivities);
+    // Return the latest activities
+    res.json(latestActivities);
+  } catch (error) {
+    // Handle errors
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   createPlayerPost,
   Getrequestonpost,
@@ -409,4 +454,5 @@ module.exports = {
   getpostsbyids,
   POSTREJECT,
   requestoncoachpost,
+  RecentActivity,
 };

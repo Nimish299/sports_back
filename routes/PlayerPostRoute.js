@@ -18,6 +18,7 @@ const {
   getpostsbyids,
   POSTREJECT,
   requestoncoachpost,
+  RecentActivity,
 } = require('../controllers/playerPostController');
 
 router.use(
@@ -34,6 +35,7 @@ router.use(
     '/POSTREJECT',
     '/getpostsbyids',
     '/requestoncoachpost',
+    '/recent',
   ],
   playermiddle
 );
@@ -52,4 +54,6 @@ router.get('/Getrequestonpost/:_id', Getrequestonpost);
 router.get('/sport/:sport', playerPostbySport);
 
 router.post('/requestoncoachpost/:_id', requestoncoachpost);
+
+router.get('/recent', RecentActivity);
 module.exports = router;
