@@ -137,6 +137,29 @@ const profile = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+const updateProfile = async (req, res) => {
+  try {
+    const coachId = req.coachid;
+    let coach = await coachModel.findById(coachId);
+    // console.log(player);
+    if (!coach) {
+      return res.status(404).json({ error: 'Player not found' });
+    }
+    console.log(req);
+    console.log(`coach`, coach);
+    const { emailID, password, ...updatedData } = req.body;
+
+    coach.set(updatedData);
+
+    coach = await coach.save();
+    console.log(`coach after`, coach);
+    // console.log(coach);
+    res.status(200).json(coach);
+  } catch (error) {
+    console.error('Error updating player profile:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 module.exports = {
   signup,
   login,
@@ -144,4 +167,5 @@ module.exports = {
   all_applied_Student,
   fetch_player_info,
   profile,
+  updateProfile,
 };
