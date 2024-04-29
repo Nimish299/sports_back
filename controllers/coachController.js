@@ -21,13 +21,20 @@ const signup = async (req, res) => {
       coaching_experience_years,
       certifications,
     } = req.body;
-    console.log(emailID);
-    console.log(password);
+    // console.log(emailID);
+    // console.log(password);
     // Check if coach with the same email already exists
     const existingCoach = await coachModel.findOne({ emailID });
+    const existingplayer = await playerModel.findOne({ emailID });
     if (existingCoach) {
-      console.log();
-      return res.status(400).json({ error: 'Coach already exists' });
+      console.log('Coach already exists');
+      return res
+        .status(400)
+        .json({ error: 'Mail already exists for another coach' });
+    }
+    if (existingplayer) {
+      console.log('Player already exists');
+      return res.status(400).json({ error: 'Mail already exists for player' });
     }
 
     // Create a new coach document with sports expertise
@@ -48,6 +55,7 @@ const signup = async (req, res) => {
     // Respond with token
     res.status(200).json({ token });
   } catch (error) {
+    console.log(error);
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
   }

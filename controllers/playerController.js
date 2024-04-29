@@ -34,7 +34,13 @@ const check = async (req, res) => {
 const signup = async (req, res) => {
   const { name, emailID, password, mobileNumber } = req.body;
   const player = await playerModel.findOne({ emailID });
-
+  const existingCoach = await coachModel.findOne({ emailID });
+  if (existingCoach) {
+    console.log('Coach already exists');
+    return res
+      .status(400)
+      .json({ error: 'Mail already exists for another coach' });
+  }
   if (!player) {
     try {
       const player = await playerModel.create({
@@ -51,7 +57,9 @@ const signup = async (req, res) => {
       return res.status(400).json({ error: err });
     }
   } else {
-    res.status(400).json({ error: 'already exists' });
+    res
+      .status(400)
+      .json({ error: 'Mail already exists for playeralready exists' });
   }
 };
 const fetchPlayerInfo = async (req, res) => {
