@@ -198,13 +198,15 @@ const getActiveUsersCount = async (req, res) => {
 const getAllPlayersList = async (req, res) => {
   try {
     // Retrieve all players from the database
-    const players = await playerModel.find({}, '_id name emailID isBlocked');
+    const players = await playerModel
+      .find({}, '_id name emailID isBlocked createdAt')
+      .sort({ createdAt: -1 });
 
     // If there are no players, return an empty array
     if (!players) {
       return [];
     }
-
+    // console.log(players);
     // Map the players to include only the required fields and return the result as an array
     const finalPlayers = players.map((player) => ({
       id: player._id,
@@ -212,7 +214,7 @@ const getAllPlayersList = async (req, res) => {
       email: player.emailID,
       isBlocked: player.isBlocked,
     }));
-    console.log(finalPlayers);
+    // console.log(finalPlayers);
     res.status(200).json(finalPlayers);
   } catch (error) {
     // Handle errors
@@ -224,7 +226,9 @@ const getAllPlayersList = async (req, res) => {
 const getAllCoachesList = async (req, res) => {
   try {
     // Retrieve all coaches from the database
-    const coaches = await coachModel.find({}, '_id name emailID isBlocked');
+    const coaches = await coachModel
+      .find({}, '_id name emailID isBlocked createdAt')
+      .sort({ createdAt: -1 });
 
     // If there are no coaches, return an empty array
     if (!coaches) {
@@ -304,7 +308,8 @@ const blockPlayer = async (req, res) => {
       throw new Error('player ID could not be found');
     }
 
-    const player = await playerModel.findById({ _id: playerID });
+    const player = await playerModel.findById(playerID);
+    console.log('player backend', player);
 
     if (!player) {
       throw new Error('player not found');
@@ -328,7 +333,7 @@ const unblockPlayer = async (req, res) => {
       throw new Error('player ID could not be found');
     }
 
-    const player = await playerModel.findById({ _id: playerID });
+    const player = await playerModel.findById(playerID);
 
     if (!player) {
       throw new Error('player not found');
