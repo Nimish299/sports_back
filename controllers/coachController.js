@@ -65,6 +65,7 @@ const login = async (req, res) => {
   const { emailID, password } = req.body;
   try {
     coach = await coachModel.login(emailID, password);
+    console.log(coach);
     if (coach && coach.isBlocked) {
       return res.status(400).json({
         error:
@@ -74,10 +75,11 @@ const login = async (req, res) => {
   } catch (e) {
     return res.status(400).json({ error: e.message });
   }
-
+  console.log(`ss`);
   const token = createToken(coach._id);
-  res.cookie('coachid', token, { httpOnly: true, maxAge: maxAge * 1000 });
-  res.status(200).json(coach);
+
+  // res.cookie('coachid', token, { httpOnly: true, maxAge: maxAge * 1000 });
+  res.status(200).json({ token });
 };
 
 //we set lifetime to 1 ms so it goes
