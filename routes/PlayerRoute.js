@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
+const { coachmiddle } = require('../middleware/coachMiddleware');
 const { playermiddle } = require('../middleware/playerMiddleware');
+
+const { adminmiddle } = require('../middleware/adminMiddleware');
 const {
   coachPost,
   allcoachPosts,
@@ -24,6 +26,7 @@ const {
   fetch_coach_info,
   coach_applied,
   fetch_coach,
+
 } = require('../controllers/playerController');
 
 router.post('/signup', signup);
@@ -48,6 +51,7 @@ router.use(
     '/coachpost',
     '/coach_applied',
     '/fetch_coach',
+    
   ],
   playermiddle
 );
