@@ -94,7 +94,10 @@ const allPlayerPosts = async (req, res) => {
   const playerId = req.playerid;
 
   // Fetch all posts excluding those created by the player
-  const posts = await playerPostModel.find({ createdBy: { $ne: playerId } });
+  // const posts = await playerPostModel.find({ createdBy: { $ne: playerId } });
+  const posts = await playerPostModel
+    .find({ createdBy: { $ne: playerId } })
+    .sort({ createdAt: -1 });
   return res.status(200).json(posts);
 };
 

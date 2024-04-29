@@ -63,22 +63,21 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   const { emailID, password } = req.body;
-  console.log(emailID);
-  console.log(password);
   try {
     coach = await coachModel.login(emailID, password);
-    console.log(coach);
+    if (coach && coach.isBlocked) {
+      return res.status(400).json({
+        error:
+          'Your account is blocked by admin. Please contact admin to unblock your account',
+      });
+    }
   } catch (e) {
-    console.log(e);
     return res.status(400).json({ error: e.message });
   }
 
   const token = createToken(coach._id);
-  // res.cookie('coachid',token, { httpOnly: true, maxAge: maxAge * 1000 })
-  console.log('token', token);
-
-  res.status(200).json({ token });
-  // res.status(200).json(coach);
+  res.cookie('coachid', token, { httpOnly: true, maxAge: maxAge * 1000 });
+  res.status(200).json(coach);
 };
 
 //we set lifetime to 1 ms so it goes

@@ -103,11 +103,20 @@ const fetchPlayerInfo = async (req, res) => {
 //   res.status(200).json({ token });
 // };
 
+
 const login = async (req, res) => {
   const { emailID, password } = req.body;
   try {
     player = await playerModel.login(emailID, password);
+    if(!player){
+      return res.status(400).json({ error: "user doesnt exist"});
+    }
+    if(player && player.isBlocked){
+      console.log("hah")
+      return res.status(400).json({ error: "Your account is blocked by admin. Please contact admin to unblock your account" });
+    }
   } catch (e) {
+    
     return res.status(400).json({ error: e.message });
   }
 
