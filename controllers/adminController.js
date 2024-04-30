@@ -123,18 +123,20 @@ const getCoachSportsCount = async (req, res) => {
 const getTopTenUsers = async (req, res) => {
   try {
     const latestCoaches = await coachModel
-      .find({}, { name: 1, emailID: 1 })
+      .find({}, { name: 1, emailID: 1, createdAt: 1 })
       .sort({ createdAt: -1 })
       .limit(10);
 
     const latestPlayers = await playerModel
-      .find({}, { name: 1, emailID: 1 })
+      .find({}, { name: 1, emailID: 1, createdAt: 1 })
       .sort({ createdAt: -1 })
       .limit(10);
 
     const combinedLatestUsers = [...latestCoaches, ...latestPlayers];
 
-    combinedLatestUsers.sort((a, b) => b.createdAt - a.createdAt);
+    combinedLatestUsers.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
 
     // Return top 10 latest users
     const data = combinedLatestUsers
@@ -144,15 +146,8 @@ const getTopTenUsers = async (req, res) => {
   } catch (error) {
     // Handle error
     console.error(error);
-    throw new Error('Error fetching latest users');
+    return res.status(500).json({ error: 'Error fetching latest users' });
   }
-
-  // try {
-  //   const topUsers = await getLatestUsers();
-  //   res.json(topUsers);
-  // } catch (error) {
-  //   res.status(500).json({ message: error.message });
-  // }
 };
 
 const getActivePlayersCount = async (req, res) => {
